@@ -80,33 +80,42 @@ Every HTTP request flows through the `monitor_requests` middleware, which record
 The pipeline defined in `.github/workflows/devsecops.yml` runs on every push and pull request to `main`. Here is the exact flow:
 
 ```mermaid
-graph LR
-    A["🧑‍💻 Developer Push\nto main / PR"] --> B
+graph TD
+    DEV["🧑‍💻 git push / pull request"]
 
-    subgraph JOB1["Job 1 · Code Quality & Automated Tests"]
-        B["Checkout Code\nactions/checkout@v4"] --> C["Setup Python 3.12\nwith pip cache"]
-        C --> D["Install Dependencies\npip install -r requirements.txt"]
-        D --> E["🔍 Ruff Linter\nruff check app/ tests/\nE, F, W, I rules · line-length 88"]
-        E --> F["✅ Pytest Suite\npytest -v · 4 test functions\nresets Prometheus state per test"]
+    DEV --> J1
+    DEV --> J2
+
+    subgraph J1["⬛ JOB 1 — Code Quality & Tests"]
+        direction TB
+        A1["📥 Checkout"] --> A2["🐍 Python 3.12 + pip cache"]
+        A2 --> A3["📦 pip install -r requirements.txt"]
+        A3 --> A4["🔍 Ruff — lint app/ tests/"]
+        A4 --> A5["✅ pytest -v — 4 tests pass"]
     end
 
-    subgraph JOB2["Job 2 · Secret Scanning (parallel)"]
-        G["Checkout — fetch-depth: 0\nFull git history"] --> H["🔐 Gitleaks\ngitleaks-action@v2\nScans every commit ever pushed"]
+    subgraph J2["⬛ JOB 2 — Secret Scanning"]
+        direction TB
+        B1["📥 Checkout (full history)"] --> B2["🔐 Gitleaks — scan every commit"]
     end
 
-    A --> G
+    A5 --> GATE
+    B2 --> GATE
 
-    F --> I
-    H --> I
+    GATE{"Both jobs green?"}
 
-    subgraph JOB3["Job 3 · Container Security & Publish\n(needs: job1 + job2 both green)"]
-        I["Docker Buildx Setup"] --> J["🐳 Build Multistage Image\nbuilder stage → runtime stage\nTagged :sha + :latest"]
-        J --> K["🛡️ Trivy CVE Scanner\nexit-code: 1\nSeverity: CRITICAL, HIGH\nignore-unfixed: true"]
-        K --> L["💨 Container Smoke Test\ndocker run -d · curl /healthz\ncurl /metrics · docker stop"]
-        L --> M{"Push to main?"}
-        M -- Yes --> N["Login GHCR\ndocker/login-action@v3"]
-        N --> O["🚀 Publish to GHCR\nghcr.io/repo:sha\nghcr.io/repo:latest"]
-        M -- No / PR --> P["🛑 Image NOT published\nSecurity gate enforced"]
+    GATE -- "❌ Either fails" --> BLOCK["🚫 Pipeline blocked\nImage never published"]
+
+    GATE -- "✅ Both pass" --> J3
+
+    subgraph J3["⬛ JOB 3 — Container Security & Publish"]
+        direction TB
+        C1["🐳 docker build — multistage\nbuilder → runtime, :sha + :latest"]
+        C1 --> C2["🛡️ Trivy scan\nCRITICAL + HIGH · exit-code 1"]
+        C2 --> C3["💨 Smoke test\ncurl /healthz · curl /metrics"]
+        C3 --> C4{"Push to main?"}
+        C4 -- Yes --> C5["🚀 Push to GHCR\n:sha + :latest"]
+        C4 -- "PR only" --> C6["🛑 Image held\nNot published"]
     end
 ```
 
