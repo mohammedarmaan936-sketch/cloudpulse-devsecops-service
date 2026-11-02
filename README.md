@@ -9,7 +9,7 @@
 [![Trivy](https://img.shields.io/badge/Trivy-0%20CVEs-1A4C6E?logo=aquasecurity&logoColor=white)](https://trivy.dev/)
 [![Gitleaks](https://img.shields.io/badge/Gitleaks-Secret%20Scan-FF5733?logo=git&logoColor=white)](https://github.com/gitleaks/gitleaks)
 [![Prometheus](https://img.shields.io/badge/Prometheus-Metrics-E6522C?logo=prometheus&logoColor=white)](https://prometheus.io/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 
 ---
 
@@ -438,3 +438,6 @@ cloudpulse-devsecops-service/
 Built with 🔐 DevSecOps-first engineering · Python 3.12 · FastAPI · Docker · GitHub Actions · Trivy · Gitleaks · Prometheus
 
 </div>
+
+
+Built by Mohammed Armaan Kazi
