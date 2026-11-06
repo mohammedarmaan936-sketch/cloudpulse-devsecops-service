@@ -375,7 +375,7 @@
       <rect x="0" y="116" width="498" height="42" rx="6" fill="#162e20" stroke="#2ea043" stroke-width="1.2" />
       <circle cx="18" cy="137" r="5" fill="#3fb950" />
       <text x="32" y="142" class="code-bold" fill="#ffffff">Container Smoke Test:</text>
-      <text x="210" y="142" class="code-sm" fill="#3fb950">curl /healthz (200 OK) • curl /metrics (200 OK)</text>
+      <text x="195" y="142" class="code-sm" fill="#3fb950">GET /healthz &amp; /metrics (200 OK)</text>
       <text x="486" y="142" text-anchor="end" class="code-bold" fill="#3fb950">PASS ✓</text>
     </g>
 
@@ -408,3 +408,4 @@
     <text x="900" y="24" text-anchor="end" class="code-bold" fill="#58a6ff" font-size="13">100% Shift-Left Security Pipeline</text>
   </g>
 </svg>
+
