@@ -1,0 +1,410 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="100%" height="100%">
+  <defs>
+    <!-- Background and Card Gradients -->
+    <linearGradient id="winBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0d14" />
+      <stop offset="100%" stop-color="#121620" />
+    </linearGradient>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a2028" />
+      <stop offset="100%" stop-color="#141820" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#171d26" />
+      <stop offset="100%" stop-color="#0d1118" />
+    </linearGradient>
+    <linearGradient id="greenGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2ea043" />
+      <stop offset="100%" stop-color="#3fb950" />
+    </linearGradient>
+    <linearGradient id="blueGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f6feb" />
+      <stop offset="100%" stop-color="#58a6ff" />
+    </linearGradient>
+    <linearGradient id="purpleGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8957e5" />
+      <stop offset="100%" stop-color="#bc8cff" />
+    </linearGradient>
+    <linearGradient id="amberGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d29922" />
+      <stop offset="100%" stop-color="#f0883e" />
+    </linearGradient>
+    <filter id="winShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <style>
+    /* Balanced, High-Legibility Typography with Zero Overflow */
+    .win-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13.5px; font-weight: 700; fill: #c9d1d9; }
+    .tab-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 700; }
+    .heading { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 18px; font-weight: 800; fill: #ffffff; letter-spacing: -0.2px; }
+    .subheading { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 500; fill: #8b949e; }
+    .code-bold { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; font-size: 13.5px; font-weight: 700; }
+    .code-md { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; font-weight: 600; }
+    .code-sm { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; font-size: 12px; font-weight: 500; }
+    .stat-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11.5px; font-weight: 800; letter-spacing: 0.6px; fill: #8b949e; text-transform: uppercase; }
+    .stat-val { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; font-size: 24px; font-weight: 800; }
+    .footer-note { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 500; fill: #8b949e; }
+
+    /* Pure Opacity Frame Animation Loop (12s total: 3s per step, NO translateY) */
+    @keyframes frame1Fade {
+      0%, 22% { opacity: 1; visibility: visible; }
+      24%, 100% { opacity: 0; visibility: hidden; }
+    }
+    @keyframes frame2Fade {
+      0%, 23% { opacity: 0; visibility: hidden; }
+      25%, 47% { opacity: 1; visibility: visible; }
+      49%, 100% { opacity: 0; visibility: hidden; }
+    }
+    @keyframes frame3Fade {
+      0%, 48% { opacity: 0; visibility: hidden; }
+      50%, 72% { opacity: 1; visibility: visible; }
+      74%, 100% { opacity: 0; visibility: hidden; }
+    }
+    @keyframes frame4Fade {
+      0%, 73% { opacity: 0; visibility: hidden; }
+      75%, 97% { opacity: 1; visibility: visible; }
+      99%, 100% { opacity: 0; visibility: hidden; }
+    }
+
+    /* Tab Border Glow Sync */
+    @keyframes tab1Glow { 0%, 22% { stroke: #388bfd; stroke-width: 2; } 24%, 100% { stroke: #30363d; stroke-width: 1; } }
+    @keyframes tab2Glow { 0%, 23% { stroke: #30363d; stroke-width: 1; } 25%, 47% { stroke: #2ea043; stroke-width: 2; } 49%, 100% { stroke: #30363d; stroke-width: 1; } }
+    @keyframes tab3Glow { 0%, 48% { stroke: #30363d; stroke-width: 1; } 50%, 72% { stroke: #f0883e; stroke-width: 2; } 74%, 100% { stroke: #30363d; stroke-width: 1; } }
+    @keyframes tab4Glow { 0%, 73% { stroke: #30363d; stroke-width: 1; } 75%, 97% { stroke: #bc8cff; stroke-width: 2; } 99%, 100% { stroke: #30363d; stroke-width: 1; } }
+
+    /* Continuous Timeline Progress Bar */
+    @keyframes progressTrack {
+      0% { width: 0px; }
+      100% { width: 900px; }
+    }
+
+    /* Live Blinking Dot */
+    @keyframes liveBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .frame-1 { animation: frame1Fade 12s infinite; }
+    .frame-2 { animation: frame2Fade 12s infinite; }
+    .frame-3 { animation: frame3Fade 12s infinite; }
+    .frame-4 { animation: frame4Fade 12s infinite; }
+    .tab-1-box { animation: tab1Glow 12s infinite; }
+    .tab-2-box { animation: tab2Glow 12s infinite; }
+    .tab-3-box { animation: tab3Glow 12s infinite; }
+    .tab-4-box { animation: tab4Glow 12s infinite; }
+    .progress-bar-fill { animation: progressTrack 12s linear infinite; }
+    .live-dot { animation: liveBlink 1.5s infinite; }
+  </style>
+
+  <!-- Outer Window Shell -->
+  <rect x="10" y="8" width="940" height="534" rx="12" fill="url(#winBg)" stroke="#30363d" stroke-width="1.5" filter="url(#winShadow)" />
+
+  <!-- Window Header Bar -->
+  <rect x="10" y="8" width="940" height="38" rx="12" fill="url(#headerGrad)" />
+  <rect x="10" y="34" width="940" height="12" fill="url(#headerGrad)" />
+  <line x1="10" y1="46" x2="950" y2="46" stroke="#21262d" stroke-width="1" />
+
+  <!-- Window Controls -->
+  <circle cx="32" cy="27" r="5.5" fill="#ff5f56" />
+  <circle cx="50" cy="27" r="5.5" fill="#ffbd2e" />
+  <circle cx="68" cy="27" r="5.5" fill="#27c93f" />
+
+  <text x="480" y="32" text-anchor="middle" class="win-title">🔒 CloudPulse DevSecOps • Automated CI/CD &amp; Security Pipeline</text>
+  <circle cx="918" cy="26" r="4.5" fill="#3fb950" class="live-dot" />
+  <text x="908" y="31" text-anchor="end" class="code-bold" fill="#3fb950" font-size="12">CI PASS</text>
+
+  <!-- Step Navigation Pills (Tabs) -->
+  <g transform="translate(30, 54)">
+    <!-- Tab 1 -->
+    <rect x="0" y="0" width="216" height="32" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1" class="tab-1-box" />
+    <text x="108" y="21" text-anchor="middle" class="tab-text" fill="#ffffff">1. Pre-Commit &amp; SAST</text>
+
+    <!-- Tab 2 -->
+    <rect x="228" y="0" width="216" height="32" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1" class="tab-2-box" />
+    <text x="336" y="21" text-anchor="middle" class="tab-text" fill="#ffffff">2. Chaos &amp; Unit Tests</text>
+
+    <!-- Tab 3 -->
+    <rect x="456" y="0" width="216" height="32" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1" class="tab-3-box" />
+    <text x="564" y="21" text-anchor="middle" class="tab-text" fill="#ffffff">3. Hardened Docker</text>
+
+    <!-- Tab 4 -->
+    <rect x="684" y="0" width="216" height="32" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1" class="tab-4-box" />
+    <text x="792" y="21" text-anchor="middle" class="tab-text" fill="#ffffff">4. Trivy Gate &amp; Push</text>
+  </g>
+
+  <!-- 12-Second Progress Line -->
+  <g transform="translate(30, 94)">
+    <rect x="0" y="0" width="900" height="3.5" rx="1.75" fill="#21262d" />
+    <rect x="0" y="0" width="0" height="3.5" rx="1.75" fill="url(#blueGlow)" class="progress-bar-fill" />
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- FRAME 1: Pre-Commit & SAST Gate (0s - 3s)                     -->
+  <!-- ============================================================ -->
+  <g class="frame-1">
+    <!-- Frame Title & Subtitle -->
+    <text x="30" y="122" class="heading">🛡️ Step 1: Pre-Commit Code Quality &amp; SAST Secret Gate</text>
+    <text x="30" y="142" class="subheading">Fast parallel quality gates: Ruff validates PEP 8 and imports, while Gitleaks audits complete Git commit history.</text>
+
+    <!-- Left: Pipeline Checks Card (width 530) -->
+    <rect x="30" y="156" width="530" height="306" rx="8" fill="url(#cardGrad)" stroke="#30363d" stroke-width="1" />
+
+    <!-- Job 1 -->
+    <g transform="translate(46, 184)">
+      <circle cx="12" cy="12" r="10" fill="#238636" />
+      <path d="M 8 12 L 11 15 L 16 9" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" />
+      <text x="32" y="17" class="code-bold" fill="#ffffff">actions/checkout@v4</text>
+      <text x="498" y="17" text-anchor="end" class="code-md" fill="#3fb950">[PASS] fetch-depth: 0</text>
+    </g>
+
+    <!-- Job 2: Ruff Linter Row -->
+    <g transform="translate(46, 230)">
+      <circle cx="12" cy="12" r="10" fill="#238636" />
+      <path d="M 8 12 L 11 15 L 16 9" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" />
+      <text x="32" y="17" class="code-bold" fill="#ffffff">ruff check app/ tests/</text>
+      <text x="498" y="17" text-anchor="end" class="code-md" fill="#3fb950">[PASS] 0 errors (E, F, W, I)</text>
+    </g>
+
+    <!-- Job 3: Gitleaks Highlighted Row -->
+    <g transform="translate(40, 272)">
+      <rect x="0" y="0" width="510" height="46" rx="6" fill="#182230" stroke="#388bfd" stroke-width="1.5" />
+      <circle cx="20" cy="23" r="10" fill="#238636" />
+      <path d="M 16 23 L 19 26 L 24 20" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" />
+      <text x="40" y="28" class="code-bold" fill="#58a6ff">gitleaks/gitleaks-action@v2</text>
+      <text x="494" y="28" text-anchor="end" class="code-bold" fill="#3fb950">[PASS] 0 Leaked Secrets</text>
+    </g>
+
+    <!-- Job 4 -->
+    <g transform="translate(46, 336)">
+      <circle cx="12" cy="12" r="10" fill="#238636" />
+      <path d="M 8 12 L 11 15 L 16 9" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" />
+      <text x="32" y="17" class="code-bold" fill="#ffffff">setup-python@v5 (cache: pip)</text>
+      <text x="498" y="17" text-anchor="end" class="code-md" fill="#3fb950">[PASS] Python 3.12 Clean</text>
+    </g>
+
+    <!-- Card Footer -->
+    <line x1="46" y1="392" x2="544" y2="392" stroke="#21262d" />
+    <text x="46" y="422" class="code-sm" fill="#8b949e">Jobs: code-quality-and-tests &amp; secret-scanning • Parallel 18s • 0 Flags</text>
+
+    <!-- Right Side: Ruff & Gitleaks Stat Panels (width 350) -->
+    <!-- Ruff Card -->
+    <rect x="580" y="156" width="350" height="145" rx="8" fill="url(#cardGrad)" stroke="#388bfd" stroke-width="1.3" />
+    <text x="600" y="184" class="stat-label" fill="#58a6ff">RUFF LINTER CODE QUALITY</text>
+    <text x="600" y="220" class="stat-val" fill="#3fb950">0 Errors<tspan font-size="14" fill="#c9d1d9" font-weight="600"> / 0 Warnings</tspan></text>
+    <text x="600" y="246" class="code-sm" fill="#c9d1d9">Rules: E, F, W, I • Line Length: 88</text>
+    <rect x="600" y="258" width="310" height="8" rx="4" fill="#21262d" />
+    <rect x="600" y="258" width="310" height="8" rx="4" fill="url(#greenGlow)" />
+    <text x="600" y="284" class="code-md" fill="#3fb950">100% Clean • Import order verified</text>
+
+    <!-- Gitleaks Card -->
+    <rect x="580" y="317" width="350" height="145" rx="8" fill="url(#cardGrad)" stroke="#30363d" stroke-width="1.2" />
+    <text x="600" y="345" class="stat-label">GITLEAKS SECRET SCANNER</text>
+    <text x="600" y="381" class="stat-val" fill="#3fb950">0 Credentials</text>
+    <text x="600" y="408" class="code-sm" fill="#c9d1d9">Full History Depth: Entire Git Tree</text>
+    <text x="600" y="432" class="code-md" fill="#58a6ff">Zero tokens, API keys, or private certs</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- FRAME 2: Automated Chaos & Unit Testing (3s - 6s)             -->
+  <!-- ============================================================ -->
+  <g class="frame-2">
+    <!-- Frame Title & Subtitle -->
+    <text x="30" y="122" class="heading">🧪 Step 2: Automated Chaos Simulation &amp; Pytest Suite</text>
+    <text x="30" y="142" class="subheading">FastAPI test client verifies dashboard HTML, Kubernetes /healthz probes, Prometheus telemetry, and outage failover.</text>
+
+    <!-- Main Pytest Card (width 900) -->
+    <rect x="30" y="156" width="900" height="306" rx="8" fill="url(#cardGrad)" stroke="#30363d" stroke-width="1" />
+
+    <!-- Pytest Header -->
+    <g transform="translate(50, 174)">
+      <circle cx="20" cy="20" r="18" fill="#1b2430" stroke="#3fb950" stroke-width="1.5" />
+      <text x="20" y="26" font-size="16" text-anchor="middle">⚡</text>
+      <text x="50" y="20" class="heading" font-size="18">pytest -v tests/test_main.py</text>
+      <text x="50" y="38" class="code-sm" fill="#c9d1d9">Platform: Python 3.12 (Linux x86_64) • Root: pyproject.toml • autouse state isolation</text>
+
+      <!-- Test Status Badges -->
+      <rect x="580" y="4" width="140" height="32" rx="16" fill="#162e20" stroke="#2ea043" stroke-width="1.2" />
+      <circle cx="598" cy="20" r="5" fill="#3fb950" />
+      <text x="612" y="25" class="code-bold" fill="#3fb950">4/4 Passed</text>
+
+      <rect x="734" y="4" width="136" height="32" rx="16" fill="#162e20" stroke="#2ea043" stroke-width="1.2" />
+      <text x="752" y="25" font-size="14">⏱️</text>
+      <text x="774" y="25" class="code-bold" fill="#3fb950">0.38s Total</text>
+    </g>
+
+    <!-- 4 Test Items Grid -->
+    <g transform="translate(50, 230)">
+      <!-- Test 1 -->
+      <rect x="0" y="0" width="430" height="42" rx="6" fill="#161b22" stroke="#2ea043" stroke-width="1.2" />
+      <circle cx="18" cy="21" r="5" fill="#3fb950" />
+      <text x="32" y="25" class="code-bold" fill="#ffffff">test_get_dashboard</text>
+      <text x="418" y="25" text-anchor="end" class="code-md" fill="#3fb950">[200 OK HTML] ✓</text>
+
+      <!-- Test 2 -->
+      <rect x="450" y="0" width="430" height="42" rx="6" fill="#161b22" stroke="#2ea043" stroke-width="1.2" />
+      <circle cx="468" cy="21" r="5" fill="#3fb950" />
+      <text x="482" y="25" class="code-bold" fill="#ffffff">test_get_healthz_healthy</text>
+      <text x="868" y="25" text-anchor="end" class="code-md" fill="#3fb950">[status: healthy] ✓</text>
+
+      <!-- Test 3 -->
+      <rect x="0" y="52" width="430" height="42" rx="6" fill="#161b22" stroke="#2ea043" stroke-width="1.2" />
+      <circle cx="18" cy="73" r="5" fill="#3fb950" />
+      <text x="32" y="77" class="code-bold" fill="#ffffff">test_simulate_surge_increments</text>
+      <text x="418" y="77" text-anchor="end" class="code-md" fill="#3fb950">[30s Burst Task] ✓</text>
+
+      <!-- Test 4 -->
+      <rect x="450" y="52" width="430" height="42" rx="6" fill="#161b22" stroke="#2ea043" stroke-width="1.2" />
+      <circle cx="468" cy="73" r="5" fill="#3fb950" />
+      <text x="482" y="77" class="code-bold" fill="#ffffff">test_simulate_outage_toggle</text>
+      <text x="868" y="77" text-anchor="end" class="code-md" fill="#3fb950">[503 ➔ 200 Auto-Heal] ✓</text>
+
+      <!-- Chaos Endpoints Details Banner -->
+      <rect x="0" y="104" width="880" height="48" rx="6" fill="#1b2430" stroke="#388bfd" stroke-width="1.3" />
+      <text x="18" y="132" class="code-md" fill="#58a6ff">⚡ Telemetry Verification:</text>
+      <text x="210" y="132" class="code-sm" fill="#c9d1d9">cloudpulse_flash_surge_events_total counter verified • /api/v1/checkout surge observed</text>
+      <text x="862" y="132" text-anchor="end" class="code-bold" fill="#3fb950">100% PASS</text>
+    </g>
+
+    <!-- Pytest Footer Banner -->
+    <rect x="40" y="418" width="860" height="32" rx="6" fill="#161b22" />
+    <text x="60" y="439" class="code-sm" fill="#c9d1d9">
+      Prometheus Metrics Scraped: <tspan fill="#3fb950">GET /metrics 200 OK</tspan> • <tspan fill="#3fb950">SERVICE_HEALTH_STATUS: 1.0 (UP)</tspan> • Latency Histogram Active
+    </text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- FRAME 3: Hardened Multi-Stage Docker Build (6s - 9s)          -->
+  <!-- ============================================================ -->
+  <g class="frame-3">
+    <!-- Frame Title & Subtitle -->
+    <text x="30" y="122" class="heading">🐳 Step 3: Hardened Multi-Stage Container Assembly</text>
+    <text x="30" y="142" class="subheading">Builder stage isolates dependencies and purges SBOM files; Runtime stage drops privileges to UID 10001 (appuser).</text>
+
+    <!-- Stage 1: Builder Stage Card (width 435) -->
+    <rect x="30" y="156" width="435" height="306" rx="8" fill="url(#cardGrad)" stroke="#388bfd" stroke-width="1.3" />
+    <g transform="translate(46, 178)">
+      <rect x="0" y="0" width="130" height="24" rx="4" fill="#1b2a3a" stroke="#388bfd" stroke-width="1" />
+      <text x="65" y="16" text-anchor="middle" class="code-bold" fill="#58a6ff" font-size="11">STAGE 1: BUILDER</text>
+      <text x="142" y="17" class="code-sm" fill="#8b949e">python:3.12-slim</text>
+
+      <g transform="translate(0, 40)">
+        <text x="0" y="16" class="code-bold" fill="#ffffff">1. Isolated Python VirtualEnv</text>
+        <text x="0" y="34" class="code-sm" fill="#8b949e">python -m venv /opt/venv</text>
+
+        <text x="0" y="66" class="code-bold" fill="#ffffff">2. Cache-Free Dependencies</text>
+        <text x="0" y="84" class="code-sm" fill="#8b949e">pip install --no-cache-dir -r requirements.txt</text>
+
+        <text x="0" y="116" class="code-bold" fill="#ffffff">3. Purge Vendored SBOMs</text>
+        <text x="0" y="134" class="code-sm" fill="#f0883e">find /opt/venv -name "bom.cdx.json" -delete</text>
+
+        <text x="0" y="166" class="code-bold" fill="#ffffff">4. Ephemeral Build Layer</text>
+        <text x="0" y="184" class="code-sm" fill="#8b949e">Compiler tools &amp; caches discarded</text>
+      </g>
+
+      <rect x="0" y="246" width="403" height="26" rx="4" fill="#161b22" />
+      <text x="10" y="263" class="code-sm" fill="#58a6ff">Output: Clean /opt/venv runtime artifact</text>
+    </g>
+
+    <!-- Stage 2: Hardened Runtime Card (width 435) -->
+    <rect x="495" y="156" width="435" height="306" rx="8" fill="url(#cardGrad)" stroke="#f0883e" stroke-width="1.3" />
+    <g transform="translate(511, 178)">
+      <rect x="0" y="0" width="130" height="24" rx="4" fill="#352312" stroke="#f0883e" stroke-width="1" />
+      <text x="65" y="16" text-anchor="middle" class="code-bold" fill="#f0883e" font-size="11">STAGE 2: RUNTIME</text>
+      <text x="142" y="17" class="code-sm" fill="#8b949e">python:3.12-slim</text>
+
+      <g transform="translate(0, 40)">
+        <text x="0" y="16" class="code-bold" fill="#ffffff">1. Non-Root System User (UID 10001)</text>
+        <text x="0" y="34" class="code-sm" fill="#3fb950">useradd -u 10001 -s /sbin/nologin appuser</text>
+
+        <text x="0" y="66" class="code-bold" fill="#ffffff">2. Strip Attack Surface</text>
+        <text x="0" y="84" class="code-sm" fill="#3fb950">rm -rf setuptools* wheel* (0 CVE bloat)</text>
+
+        <text x="0" y="116" class="code-bold" fill="#ffffff">3. Non-Root File Ownership</text>
+        <text x="0" y="134" class="code-sm" fill="#8b949e">COPY --chown=appuser:appuser app/ ./app/</text>
+
+        <text x="0" y="166" class="code-bold" fill="#ffffff">4. Native Docker Healthcheck</text>
+        <text x="0" y="184" class="code-sm" fill="#58a6ff">HEALTHCHECK CMD curl -f /healthz || exit 1</text>
+      </g>
+
+      <rect x="0" y="246" width="403" height="26" rx="4" fill="#161b22" />
+      <text x="10" y="263" class="code-bold" fill="#3fb950">USER appuser (UID 10001) • Read-Only FS Ready</text>
+    </g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- FRAME 4: Trivy Security Gate & Registry Push (9s - 12s)       -->
+  <!-- ============================================================ -->
+  <g class="frame-4">
+    <!-- Frame Title & Subtitle -->
+    <text x="30" y="122" class="heading">🚀 Step 4: Trivy Container Gate &amp; GHCR Registry Publish</text>
+    <text x="30" y="142" class="subheading">Trivy enforces exit-code 1 gate. Remediated 3 HIGH CVEs ➔ Smoke tests pass ➔ Published to GHCR for GitOps Part 2.</text>
+
+    <!-- Left: Trivy Report Card (width 530) -->
+    <rect x="30" y="156" width="530" height="306" rx="8" fill="url(#cardGrad)" stroke="#2ea043" stroke-width="1.3" />
+
+    <!-- Scanner Header -->
+    <g transform="translate(46, 176)">
+      <text x="0" y="18" class="code-bold" fill="#ffffff" font-size="14">Trivy Vulnerability Scanner v0.58</text>
+      <text x="0" y="36" class="code-sm" fill="#8b949e">Target: ghcr.io/mohammedarmaan936-sketch/cloudpulse-devsecops-service</text>
+      <text x="498" y="18" text-anchor="end" class="code-bold" fill="#3fb950">[exit-code: 1 ENFORCED]</text>
+    </g>
+
+    <!-- Remediations Table -->
+    <g transform="translate(46, 226)">
+      <!-- Row 1 -->
+      <rect x="0" y="0" width="498" height="32" rx="4" fill="#161b22" />
+      <text x="12" y="21" class="code-bold" fill="#58a6ff">CVE-2025-62727</text>
+      <text x="170" y="21" class="code-sm" fill="#c9d1d9">Starlette HTTP parsing</text>
+      <text x="486" y="21" text-anchor="end" class="code-bold" fill="#3fb950">PATCHED (>=1.3.1) ✓</text>
+
+      <!-- Row 2 -->
+      <rect x="0" y="38" width="498" height="32" rx="4" fill="#161b22" />
+      <text x="12" y="59" class="code-bold" fill="#58a6ff">CVE-2026-48818</text>
+      <text x="170" y="59" class="code-sm" fill="#c9d1d9">Starlette header boundary</text>
+      <text x="486" y="59" text-anchor="end" class="code-bold" fill="#3fb950">PATCHED (>=1.3.1) ✓</text>
+
+      <!-- Row 3 -->
+      <rect x="0" y="76" width="498" height="32" rx="4" fill="#161b22" />
+      <text x="12" y="97" class="code-bold" fill="#58a6ff">CVE-2026-54283</text>
+      <text x="170" y="97" class="code-sm" fill="#c9d1d9">Starlette multipart DOS</text>
+      <text x="486" y="97" text-anchor="end" class="code-bold" fill="#3fb950">PATCHED (>=1.3.1) ✓</text>
+
+      <!-- Row 4: Smoke Test Box -->
+      <rect x="0" y="116" width="498" height="42" rx="6" fill="#162e20" stroke="#2ea043" stroke-width="1.2" />
+      <circle cx="18" cy="137" r="5" fill="#3fb950" />
+      <text x="32" y="142" class="code-bold" fill="#ffffff">Container Smoke Test:</text>
+      <text x="210" y="142" class="code-sm" fill="#3fb950">curl /healthz (200 OK) • curl /metrics (200 OK)</text>
+      <text x="486" y="142" text-anchor="end" class="code-bold" fill="#3fb950">PASS ✓</text>
+    </g>
+
+    <!-- Card Bottom Line -->
+    <rect x="46" y="420" width="498" height="28" rx="4" fill="#161b22" />
+    <text x="58" y="438" class="code-sm" fill="#c9d1d9">Result: <tspan fill="#3fb950" font-weight="700">0 CRITICAL, 0 HIGH</tspan> • Image verified compliant</text>
+
+    <!-- Right Panels: Trivy Stat & GHCR Publish (width 350) -->
+    <!-- Stat Panel -->
+    <rect x="580" y="156" width="350" height="145" rx="8" fill="url(#cardGrad)" stroke="#2ea043" stroke-width="1.3" />
+    <text x="600" y="184" class="stat-label" fill="#3fb950">TRIVY SECURITY AUDIT</text>
+    <text x="600" y="220" class="stat-val" fill="#3fb950">0 CVEs<tspan font-size="14" fill="#c9d1d9" font-weight="600"> (CRITICAL / HIGH)</tspan></text>
+    <text x="600" y="246" class="code-sm" fill="#c9d1d9">Remediation: 3 HIGH CVEs Patched</text>
+    <rect x="600" y="258" width="310" height="8" rx="4" fill="#21262d" />
+    <rect x="600" y="258" width="310" height="8" rx="4" fill="url(#greenGlow)" />
+    <text x="600" y="284" class="code-md" fill="#3fb950">Hard-fail security gate satisfied (Exit 0)</text>
+
+    <!-- Publish Panel -->
+    <rect x="580" y="317" width="350" height="145" rx="8" fill="url(#cardGrad)" stroke="#bc8cff" stroke-width="1.3" />
+    <text x="600" y="345" class="stat-label" fill="#bc8cff">GITHUB CONTAINER REGISTRY (GHCR)</text>
+    <text x="600" y="381" class="stat-val" fill="#ffffff" font-size="20">ghcr.io/repo<tspan fill="#bc8cff">:latest</tspan></text>
+    <text x="600" y="408" class="code-sm" fill="#c9d1d9">Tags: :latest + :${{ github.sha }}</text>
+    <text x="600" y="432" class="code-md" fill="#3fb950">🚀 Ready for Argo CD GitOps Sync (Part 2)</text>
+  </g>
+
+  <!-- Global Footer Bar -->
+  <g transform="translate(30, 488)">
+    <line x1="0" y1="0" x2="900" y2="0" stroke="#21262d" stroke-width="1" />
+    <text x="0" y="24" class="footer-note">CloudPulse DevSecOps Platform • Automated Security Factory (Part 1 of 2)</text>
+    <text x="900" y="24" text-anchor="end" class="code-bold" fill="#58a6ff" font-size="13">100% Shift-Left Security Pipeline</text>
+  </g>
+</svg>

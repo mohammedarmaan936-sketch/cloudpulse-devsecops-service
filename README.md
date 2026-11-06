@@ -21,21 +21,36 @@
 > | Repository | What Lives Here |
 > |---|---|
 > | **Part 1 — This Repo: `cloudpulse-devsecops-service`** | FastAPI microservice · chaos simulation endpoints · multistage container hardening · automated DevSecOps CI/CD pipeline (lint → test → secret scan → Trivy CVE gate → GHCR publish) |
-> | **Part 2 — [`cloudpulse-eks-gitops-infra`](https://github.com/mohammedarmaan936-sketch/cloudpulse-eks-gitops-infra)** | AWS VPC & EKS Terraform IaC · Kubernetes HPA auto-scaling · Argo CD GitOps delivery · Prometheus/Grafana observability stack |
+> | **Part 2 — [`cloudpulse-eks-gitops-infra`](https://github.com/mohammedarmaan936-sketch/cloudpulse-eks-gitops-infra)** | AWS VPC & EKS Terraform IaC · pre-merge FinOps cost-governance budget gate ($148.60/mo) · Kubernetes HPA auto-scaling · Argo CD GitOps delivery · Prometheus/Grafana observability stack |
 >
 > The image published by this pipeline is the exact artifact that Part 2 deploys to EKS. Changes to application code never touch infrastructure Terraform, and changes to infrastructure never re-run application tests — that's the architectural boundary.
 
 ---
 
+## 🎬 Live End-to-End DevSecOps Pipeline Walkthrough
+
+<p align="center">
+  <img src="assets/devsecops-pipeline-demo.svg" alt="CloudPulse Live DevSecOps Pipeline Animation" width="100%"/>
+</p>
+
+> **What You're Looking At (Live Teleprompter):** This auto-playing animation illustrates the 4-stage automated DevSecOps assembly line that guards every commit before an image is allowed near production:
+> 1. **Pre-Commit Code Quality & SAST Gate:** Fast parallel static analysis: Ruff verifies PEP 8 compliance and import order (`0 errors / 0 warnings`), while Gitleaks scans the complete git history tree (`0 leaked credentials or tokens`).
+> 2. **Automated Chaos Simulation & Pytest Suite:** The Pytest suite achieves 100% pass rate across 4 test suites in 0.38s, rigorously validating `/healthz` Kubernetes probes, Prometheus latency histograms, `/api/v1/checkout` flash-surge traffic spikes, and the 503 outage auto-heal toggle.
+> 3. **Hardened Multi-Stage Container Assembly:** A 2-stage Docker build isolates dependency compilation in an ephemeral builder, purges vendored CycloneDX SBOM metadata, strips build tools, and drops privileges to an unprivileged system user (`appuser`, UID `10001`) with read-only root compatibility.
+> 4. **Trivy Container Security Gate & GHCR Publish:** Trivy inspects the packaged artifact with a strict `exit-code: 1` hard-fail gate. Having remediated 3 HIGH CVEs in Starlette down to 0 CVEs, the container passes live smoke tests (`curl /healthz` and `/metrics`) and publishes an immutable digest to `ghcr.io/mohammedarmaan936-sketch/cloudpulse-devsecops-service:latest` ready for Argo CD GitOps pickup in Part 2.
+
+---
+
 ## 📋 Table of Contents
 
-1. [What Is CloudPulse & Why Does It Exist?](#-what-is-cloudpulse--why-does-it-exist)
-2. [End-to-End DevSecOps Pipeline Architecture](#-end-to-end-devsecops-pipeline-architecture)
-3. [Visual Walkthrough: Live Telemetry, Surge & Outage Simulation](#-visual-walkthrough-live-telemetry-surge--outage-simulation)
-4. [Real-World Case Study: Catching & Remediating 3 HIGH CVEs with Trivy](#-real-world-case-study-catching--remediating-3-high-cves-with-trivy)
-5. [Key Engineering Decisions & Interview Q&A](#-key-engineering-decisions--interview-qa)
-6. [Quick Start: Run Locally or with Docker in 60 Seconds](#-quick-start-run-locally-or-with-docker-in-60-seconds)
-7. [Repository Tree](#-repository-tree)
+1. [Live End-to-End DevSecOps Pipeline Walkthrough](#-live-end-to-end-devsecops-pipeline-walkthrough)
+2. [What Is CloudPulse & Why Does It Exist?](#-what-is-cloudpulse--why-does-it-exist)
+3. [End-to-End DevSecOps Pipeline Architecture](#-end-to-end-devsecops-pipeline-architecture)
+4. [Visual Walkthrough: Live Telemetry, Surge & Outage Simulation](#-visual-walkthrough-live-telemetry-surge--outage-simulation)
+5. [Real-World Case Study: Catching & Remediating 3 HIGH CVEs with Trivy](#-real-world-case-study-catching--remediating-3-high-cves-with-trivy)
+6. [Key Engineering Decisions & Interview Q&A](#-key-engineering-decisions--interview-qa)
+7. [Quick Start: Run Locally or with Docker in 60 Seconds](#-quick-start-run-locally-or-with-docker-in-60-seconds)
+8. [Repository Tree](#-repository-tree)
 
 ---
 
@@ -406,6 +421,9 @@ cloudpulse-devsecops-service/
 │   ├── __init__.py
 │   └── main.py                    # FastAPI app: 6 endpoints, 4 Prometheus metrics, HTML dashboard
 │
+├── assets/
+│   └── devsecops-pipeline-demo.svg # Animated SVG DevSecOps CI/CD lifecycle walkthrough
+│
 ├── docs/
 │   └── screenshots/
 │       ├── 01-dashboard-healthy.png    # Baseline healthy state
@@ -428,8 +446,8 @@ cloudpulse-devsecops-service/
 
 ## 🔗 Related Repository
 
-**Part 2 — Infrastructure, GitOps & Observability:**
-[`cloudpulse-eks-gitops-infra`](https://github.com/mohammedarmaan936-sketch/cloudpulse-eks-gitops-infra) — AWS VPC & EKS Terraform IaC, Kubernetes HPA auto-scaling, Argo CD GitOps delivery, Prometheus/Grafana observability.
+**Part 2 — Infrastructure, GitOps, FinOps & Observability:**
+[`cloudpulse-eks-gitops-infra`](https://github.com/mohammedarmaan936-sketch/cloudpulse-eks-gitops-infra) — AWS VPC & EKS Terraform IaC, pre-merge FinOps cost-governance budget gate ($148.60/mo), Kubernetes HPA auto-scaling, Argo CD GitOps delivery, Prometheus/Grafana observability.
 
 ---
 
